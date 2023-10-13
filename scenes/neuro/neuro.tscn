@@ -1,0 +1,232 @@
+[gd_scene load_steps=21 format=3 uid="uid://chuvlxj8jr0pb"]
+
+[ext_resource type="Script" path="res://scripts/neuro/neuro.gd" id="1_65jsm"]
+[ext_resource type="Texture2D" uid="uid://b0bwkub3sovhl" path="res://assets/neuro/neuro_idle_sheet.png" id="2_b2d81"]
+[ext_resource type="Texture2D" uid="uid://2idp70gghgq" path="res://assets/neuro/neuro_walk_sheet.png" id="3_ep87e"]
+[ext_resource type="Script" path="res://scripts/state_machine/state_machine.gd" id="4_jk4fn"]
+[ext_resource type="Texture2D" uid="uid://ciq547g72tr4f" path="res://assets/neuro/neuro_dash_sheet.png" id="4_ntpdk"]
+[ext_resource type="Script" path="res://scripts/neuro/idle_state.gd" id="5_327ay"]
+[ext_resource type="Texture2D" uid="uid://bu50bvjgnqx4w" path="res://assets/neuro/neuro_jump.png" id="5_vh8qw"]
+[ext_resource type="Script" path="res://scripts/neuro/walk_state.gd" id="6_a5x0y"]
+[ext_resource type="Texture2D" uid="uid://m2iouc3s53gh" path="res://assets/neuro/neuro_downward_strike_sheet.png" id="6_u7816"]
+[ext_resource type="Texture2D" uid="uid://dotmwuwu5sl0q" path="res://assets/neuro/neuro_stab_sheet.png" id="7_jh7cw"]
+[ext_resource type="Script" path="res://scripts/neuro/dash_state.gd" id="8_ctmil"]
+[ext_resource type="Script" path="res://scripts/neuro/jump_state.gd" id="10_f114c"]
+
+[sub_resource type="Animation" id="Animation_cha3n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IdleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WalkSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DashSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownwardStrikeSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StabSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0fyfc"]
+resource_name = "dash"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DashSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_juqeo"]
+resource_name = "downward_strike"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DownwardStrikeSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_qr1lu"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IdleSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_dgwx0"]
+resource_name = "stab"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StabSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_lwr4d"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WalkSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4psu"]
+_data = {
+"RESET": SubResource("Animation_cha3n"),
+"dash": SubResource("Animation_0fyfc"),
+"downward_strike": SubResource("Animation_juqeo"),
+"idle": SubResource("Animation_qr1lu"),
+"stab": SubResource("Animation_dgwx0"),
+"walk": SubResource("Animation_lwr4d")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nb2e"]
+radius = 8.0
+height = 62.0
+
+[node name="Neuro" type="CharacterBody2D"]
+script = ExtResource("1_65jsm")
+
+[node name="IdleSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_b2d81")
+hframes = 6
+
+[node name="WalkSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_ep87e")
+hframes = 8
+
+[node name="DashSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_ntpdk")
+hframes = 8
+
+[node name="JumpSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -1)
+texture = ExtResource("5_vh8qw")
+
+[node name="DownwardStrikeSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_u7816")
+hframes = 8
+
+[node name="StabSprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("7_jh7cw")
+hframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_u4psu")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 9)
+shape = SubResource("CapsuleShape2D_5nb2e")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_jk4fn")
+initial_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("5_327ay")
+
+[node name="WalkState" type="Node" parent="StateMachine"]
+script = ExtResource("6_a5x0y")
+
+[node name="DashState" type="Node" parent="StateMachine"]
+script = ExtResource("8_ctmil")
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("10_f114c")

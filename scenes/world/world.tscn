@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0yespwbf82y1"]
+
+[ext_resource type="PackedScene" uid="uid://chuvlxj8jr0pb" path="res://scenes/neuro/neuro.tscn" id="1_2vdtq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trasc"]
+size = Vector2(640, 80)
+
+[node name="World" type="Node2D"]
+
+[node name="Neuro" parent="." instance=ExtResource("1_2vdtq")]
+position = Vector2(84, 227)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(320, 320)
+shape = SubResource("RectangleShape2D_trasc")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+offset_top = 280.0
+offset_right = 641.0
+offset_bottom = 361.0
+color = Color(0, 0, 0, 1)
